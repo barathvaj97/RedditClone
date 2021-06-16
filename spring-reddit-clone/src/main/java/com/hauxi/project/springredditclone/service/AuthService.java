@@ -4,15 +4,16 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import java.util.Optional;
 import java.time.Instant;
 import java.util.UUID;                                                                      
-
-import javax.transaction.Transactional;
 
 import com.hauxi.project.springredditclone.dto.*;
 import com.hauxi.project.springredditclone.exception.RedditException;
@@ -93,5 +94,12 @@ public class AuthService {
         String authenticationToken=jwtProvider.generateToken(authenticate);
         return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
     }
+
+    @Transactional(readOnly = true)
+    Users getCurrentUser(){
+        User principal=(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findByUsername(principal.getUsername()).orElseThrow(() -> new UsernameNotFoundException("USer name not found: "+ principal.getUsername()));
+    }
+
 
 }

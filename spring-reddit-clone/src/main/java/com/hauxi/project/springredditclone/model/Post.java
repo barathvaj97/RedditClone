@@ -43,9 +43,10 @@ public class Post {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId",referencedColumnName = "userId")
     private Users user;
-    private Instant createdDate;
+    private Instant createDate;
+    
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id",referencedColumnName = "id")
-    private SubReddit subreddit;
+    private SubReddit subReddit;
 
 }
