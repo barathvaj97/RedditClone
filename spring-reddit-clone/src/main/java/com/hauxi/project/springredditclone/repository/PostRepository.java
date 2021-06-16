@@ -9,7 +9,7 @@ import com.hauxi.project.springredditclone.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post,Long>{
-    List<Post> findAllBySubreddit(SubReddit subreddit);
+    List<Post> findAllBySubReddit(SubReddit subReddit);
 
     List<Post> findByUser(Users user);
 }

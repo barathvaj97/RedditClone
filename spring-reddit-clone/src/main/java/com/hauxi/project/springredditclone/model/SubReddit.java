@@ -36,7 +36,7 @@ public class SubReddit {
 
     @OneToMany(fetch = LAZY)
     private List<Post> posts;
-    private Instant createdDate;
+    private Instant createDate;
     
     @ManyToOne(fetch=LAZY)
     private Users user;

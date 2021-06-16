@@ -80,7 +80,7 @@ public class AuthService {
         fetchUserAndEnable(verificationTokenOptional.get());
     }
 
-     @org.springframework.transaction.annotation.Transactional
+     @Transactional
     private void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
         Users user = userRepository.findByUsername(username).orElseThrow(() -> new RedditException("User Not Found with id - " + username));
